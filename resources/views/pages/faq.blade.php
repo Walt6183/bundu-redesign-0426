@@ -9,16 +9,32 @@
 
     <x-section>
         <div class="max-w-3xl mx-auto">
-            <x-faq-accordion :items="[
-                ['frage' => 'Wie läuft ein Erstgespräch ab?', 'antwort' => 'Das Erstgespräch ist kostenlos und unverbindlich. Wir lernen uns kennen, klären dein Anliegen und schauen gemeinsam, welches Angebot am besten passt. Das Gespräch findet online via Videokonferenz statt und dauert ca. 30 Minuten.'],
-                ['frage' => 'Finden die Beratungen online statt?', 'antwort' => 'Ja, alle Beratungen, Coachings und Supervisionen finden online statt – bequem von zu Hause oder vom Arbeitsplatz aus. Ich nutze dafür die DSGVO-konforme Plattform coachingspace.de.'],
-                ['frage' => 'Was kostet eine Beratung?', 'antwort' => 'Die Kosten variieren je nach Angebot und Umfang. Einzelberatungen starten ab CHF 150 pro Stunde. Im kostenlosen Erstgespräch besprechen wir transparent die Konditionen für dein Anliegen.'],
-                ['frage' => 'Für wen sind die Angebote geeignet?', 'antwort' => 'Meine Angebote richten sich an Eltern, Fachpersonen im pädagogischen Bereich und Institutionen in der Deutschschweiz. Ob Erziehungsfragen, Supervision oder Teamentwicklung – gemeinsam finden wir die passende Lösung.'],
-                ['frage' => 'Was ist Neue Autorität?', 'antwort' => 'Neue Autorität ist ein Konzept von Haim Omer, das auf Präsenz, Beharrlichkeit und gewaltlosem Widerstand basiert. Es bietet Eltern und Fachpersonen einen Rahmen, Konflikte deeskalierend und beziehungsorientiert zu lösen.'],
-                ['frage' => 'Wie kann ich mich für einen Kurs anmelden?', 'antwort' => 'Über das Kontaktformular oder per E-Mail an info@bundu.ch. Für den Kurs «Systemische Gesprächsführung» gibt es auf der Seite für Institutionen ein spezielles Anmeldeformular.'],
-                ['frage' => 'Was ist der Bündner Standard?', 'antwort' => 'Der Bündner Standard ist ein Schutzkonzept für Institutionen der Kinder- und Jugendhilfe. Er definiert klare Strukturen zur Prävention von Grenzverletzungen und fördert eine Kultur der Achtsamkeit.'],
-                ['frage' => 'Arbeiten Sie auch mit Institutionen ausserhalb der Deutschschweiz?', 'antwort' => 'Mein Hauptfokus liegt auf der Deutschschweiz, aber dank der Online-Angebote ist eine Zusammenarbeit grundsätzlich auch über die Landesgrenzen hinaus möglich. Kontaktieren Sie mich gerne für ein Gespräch.'],
-            ]" />
+            @if($faqs->isEmpty())
+                {{-- Fallback: Statische FAQs wenn DB leer --}}
+                <x-faq-accordion :items="[
+                    ['frage' => 'Wie läuft ein Erstgespräch ab?', 'antwort' => 'Das Erstgespräch ist kostenlos und unverbindlich. Wir lernen uns kennen, klären dein Anliegen und schauen gemeinsam, welches Angebot am besten passt. Das Gespräch findet online via Videokonferenz statt und dauert ca. 30 Minuten.'],
+                    ['frage' => 'Finden die Beratungen online statt?', 'antwort' => 'Ja, alle Beratungen, Coachings und Supervisionen finden online statt – bequem von zu Hause oder vom Arbeitsplatz aus. Ich nutze dafür die DSGVO-konforme Plattform coachingspace.de.'],
+                    ['frage' => 'Was kostet eine Beratung?', 'antwort' => 'Die Kosten variieren je nach Angebot und Umfang. Einzelberatungen starten ab CHF 150 pro Stunde. Im kostenlosen Erstgespräch besprechen wir transparent die Konditionen für dein Anliegen.'],
+                    ['frage' => 'Für wen sind die Angebote geeignet?', 'antwort' => 'Meine Angebote richten sich an Eltern, Fachpersonen im pädagogischen Bereich und Institutionen in der Deutschschweiz. Ob Erziehungsfragen, Supervision oder Teamentwicklung – gemeinsam finden wir die passende Lösung.'],
+                    ['frage' => 'Was ist Neue Autorität?', 'antwort' => 'Neue Autorität ist ein Konzept von Haim Omer, das auf Präsenz, Beharrlichkeit und gewaltlosem Widerstand basiert. Es bietet Eltern und Fachpersonen einen Rahmen, Konflikte deeskalierend und beziehungsorientiert zu lösen.'],
+                ]" />
+            @else
+                {{-- Dynamische FAQs gruppiert nach Zielgruppe --}}
+                @foreach($gruppierteFaqs as $zielgruppe => $items)
+                    @if($gruppierteFaqs->count() > 1)
+                        <h2 class="font-heading text-xl font-bold text-navy mb-6 {{ !$loop->first ? 'mt-12' : '' }}">
+                            {{ match($zielgruppe) {
+                                'alle' => 'Allgemein',
+                                'eltern' => 'Für Eltern',
+                                'fachpersonen' => 'Für Fachpersonen',
+                                'institutionen' => 'Für Institutionen',
+                                default => ucfirst($zielgruppe),
+                            } }}
+                        </h2>
+                    @endif
+                    <x-faq-accordion :items="$items->map(fn ($f) => ['frage' => $f->frage, 'antwort' => $f->antwort])->toArray()" />
+                @endforeach
+            @endif
         </div>
     </x-section>
 
