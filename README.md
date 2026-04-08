@@ -1,59 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# BundU Redesign
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Website-Redesign fuer **B&U BundU** — gebaut mit Laravel 12, Filament 3, Livewire 3 und Tailwind CSS v4.
 
-## About Laravel
+**Live:** https://bundu.ch
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Komponente | Version |
+|---|---|
+| Laravel | 12.46.0 |
+| Filament | 3.3.46 (Admin-Panel) |
+| Livewire | 3.7.3 |
+| Tailwind CSS | v4 |
+| Vite | Build-Tool |
+| PHP | 8.3+ |
 
-## Learning Laravel
+## Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **8 Filament Resources** — Angebote, Themen, Impulse, Downloads, FAQs, Referenzen, Team, Site-Config
+- **19 Frontend-Routen** — Alle mit SEO (Canonical, OG-Tags, JSON-LD Schema.org)
+- **Livewire-Formulare** — Kontaktformular + Kursanmeldung mit Validierung
+- **XML-Sitemap** — Automatisch generiert
+- **Responsive Design** — Bricolage Grotesque + Instrument Sans, Navy/Teal Farbschema
+- **ContentSeeder** — 30+ vordefinierte Inhalte
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Projektstruktur
 
-## Laravel Sponsors
+```
+app/
+├── Filament/Resources/     # 8 Admin-Resources
+├── Http/Controllers/       # Frontend-Controller
+├── Livewire/               # ContactForm, CourseRegistration
+└── Models/                 # 8 Eloquent Models
+database/
+├── migrations/             # 8 Migrations
+└── seeders/                # ContentSeeder + DatabaseSeeder
+resources/views/
+├── components/             # section, hero, card, breadcrumb
+├── layouts/                # app.blade.php
+└── pages/                  # Alle Frontend-Seiten
+public/
+└── build/                  # Vite Production Assets
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Setup (Lokal)
 
-### Premium Partners
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+npm run dev
+php artisan serve
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Admin-Panel: http://localhost:8000/admin
 
-## Contributing
+## Design Tokens
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Token | Wert |
+|---|---|
+| Navy | `#0F2040` |
+| Teal | `#079BB8` |
+| Light | `#F5F6F8` |
+| Ink | `#1A1A2E` |
+| Font Headings | Bricolage Grotesque |
+| Font Body | Instrument Sans |
 
-## Code of Conduct
+## Deployment
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Gehostet auf **Hostpoint Shared Hosting** (PHP 8.3, MariaDB 10.11).
 
-## Security Vulnerabilities
+Deployment via FTPS ZIP-Upload mit `_deploy.php` Helper-Script:
+1. `npm run build` (Vite Production Build)
+2. ZIP erstellen und per FTPS hochladen
+3. Auf Server: Entpacken, `composer install --no-dev`, `php artisan optimize`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Git History
 
-## License
+| Commit | Phase |
+|---|---|
+| 901e07c | Initial: Laravel 12 + Filament v3 Basis |
+| 81e57a9 | Phase 1: Filament Resources, Migrationen, Models, Layout |
+| f3e9491 | Phase 2: Core-Seiten, Blade-Komponenten, Livewire |
+| b9fc410 | Phase 3: Dynamische Inhalte, Controller, Detail-Seiten |
+| a003ecd | Phase 4: Content-System, SEO, Sitemap, Seeder |
+| c463d3f | Bugfix: Component Resolution + JSON-LD Escaping |
+| 085831e | Phase 5: QA + Production Deployment |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Copyright
+
+&copy; 2026 B&U BundU. Alle Rechte vorbehalten.
