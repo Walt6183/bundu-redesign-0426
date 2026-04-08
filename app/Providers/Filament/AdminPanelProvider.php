@@ -31,11 +31,12 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('B&U BundU Admin')
             ->favicon('/favicon.svg')
             ->colors([
-                'primary' => Color::hex('#002C63'),
+                'primary' => Color::hex('#0F2040'),
                 'danger' => Color::hex('#CC3333'),
                 'warning' => Color::hex('#D4AF37'),
+                'info' => Color::hex('#079BB8'),
             ])
-            ->font('Open Sans')
+            ->font('Instrument Sans')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

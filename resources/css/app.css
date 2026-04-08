@@ -6,6 +6,16 @@
 @source '../**/*.js';
 
 @theme {
+    /* Farbpalette gemäss CLAUDE.md */
+    --color-navy: #0F2040;
+    --color-teal: #079BB8;
+    --color-light: #F5F6F8;
+    --color-ink: #1A1A2E;
+    --color-white: #FFFFFF;
+
+    /* Typografie */
+    --font-heading: 'Bricolage Grotesque', sans-serif;
+    --font-body: 'Instrument Sans', sans-serif;
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }

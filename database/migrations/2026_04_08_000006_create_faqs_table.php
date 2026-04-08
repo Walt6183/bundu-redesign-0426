@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('faqs', function (Blueprint $table) {
+            $table->id();
+            $table->string('frage');
+            $table->longText('antwort')->nullable();
+            $table->string('zielgruppe')->default('alle'); // alle, eltern, fachpersonen, institutionen
+            $table->foreignId('thema_id')->nullable()->constrained('themen')->nullOnDelete();
+            $table->integer('sortierung')->default(0);
+            $table->boolean('aktiv')->default(true);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('faqs');
+    }
+};

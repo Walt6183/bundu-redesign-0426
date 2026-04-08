@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('referenzen', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('organisation')->nullable();
+            $table->text('zitat')->nullable();
+            $table->string('zielgruppe')->nullable(); // eltern, fachpersonen, institutionen
+            $table->string('bild')->nullable();
+            $table->boolean('aktiv')->default(true);
+            $table->integer('sortierung')->default(0);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('referenzen');
+    }
+};
