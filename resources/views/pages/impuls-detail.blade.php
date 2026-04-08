@@ -7,12 +7,12 @@
     @push('jsonld')
     <script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "Article",
+        "@@context": "https://schema.org",
+        "@@type": "Article",
         "headline": @json($impuls->titel),
         "description": @json($impuls->intro),
         "author": {
-            "@type": "Person",
+            "@@type": "Person",
             "name": @json($impuls->autor ?: 'Walter Uehli')
         },
         @if($impuls->datum)
@@ -22,7 +22,7 @@
         "image": "{{ asset('storage/' . $impuls->featured_image) }}",
         @endif
         "publisher": {
-            "@type": "Organization",
+            "@@type": "Organization",
             "name": "B&U BundU"
         },
         "mainEntityOfPage": "{{ url()->current() }}"

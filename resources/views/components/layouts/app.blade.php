@@ -1,3 +1,11 @@
+@props([
+    'metaTitle' => null,
+    'metaDescription' => null,
+    'canonical' => null,
+    'ogType' => 'website',
+    'ogImage' => null,
+])
+
 <!DOCTYPE html>
 <html lang="de" class="scroll-smooth">
 <head>
