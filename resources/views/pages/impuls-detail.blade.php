@@ -2,6 +2,34 @@
     :metaTitle="$impuls->meta_titel ?: $impuls->titel"
     :metaDescription="$impuls->meta_beschreibung ?: $impuls->intro"
 >
+    <x-breadcrumbs :items="[['label' => 'Impulse', 'url' => '/impulse'], ['label' => $impuls->titel]]" />
+
+    @push('jsonld')
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": @json($impuls->titel),
+        "description": @json($impuls->intro),
+        "author": {
+            "@type": "Person",
+            "name": @json($impuls->autor ?: 'Walter Uehli')
+        },
+        @if($impuls->datum)
+        "datePublished": "{{ $impuls->datum->toIso8601String() }}",
+        @endif
+        @if($impuls->featured_image)
+        "image": "{{ asset('storage/' . $impuls->featured_image) }}",
+        @endif
+        "publisher": {
+            "@type": "Organization",
+            "name": "B&U BundU"
+        },
+        "mainEntityOfPage": "{{ url()->current() }}"
+    }
+    </script>
+    @endpush
+
     {{-- Hero --}}
     <section class="bg-navy text-white py-16 lg:py-20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

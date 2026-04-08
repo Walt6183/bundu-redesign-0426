@@ -7,6 +7,8 @@
         :subtitle="$thema->einleitung"
     />
 
+    <x-breadcrumbs :items="[['label' => 'Themen', 'url' => '/themen'], ['label' => $thema->titel]]" />
+
     {{-- Hauptinhalt --}}
     <section class="py-16 lg:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

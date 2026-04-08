@@ -3,6 +3,7 @@
 use App\Http\Controllers\AngebotController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImpulsController;
 use App\Http\Controllers\ReferenzController;
 use App\Http\Controllers\ThemaController;
@@ -14,22 +15,12 @@ use Illuminate\Support\Facades\Route;
 // Frontend Routes (Blade + Livewire)
 // ==========================================
 
-Route::get('/', function () {
-    return view('pages.homepage');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Zielgruppen-Landingpages
-Route::get('/fuer-eltern', function () {
-    return view('pages.zielgruppe', ['zielgruppe' => 'eltern']);
-})->name('fuer-eltern');
-
-Route::get('/fuer-fachpersonen', function () {
-    return view('pages.zielgruppe', ['zielgruppe' => 'fachpersonen']);
-})->name('fuer-fachpersonen');
-
-Route::get('/fuer-institutionen', function () {
-    return view('pages.zielgruppe', ['zielgruppe' => 'institutionen']);
-})->name('fuer-institutionen');
+Route::get('/fuer-eltern', fn () => app(HomeController::class)->zielgruppe('eltern'))->name('fuer-eltern');
+Route::get('/fuer-fachpersonen', fn () => app(HomeController::class)->zielgruppe('fachpersonen'))->name('fuer-fachpersonen');
+Route::get('/fuer-institutionen', fn () => app(HomeController::class)->zielgruppe('institutionen'))->name('fuer-institutionen');
 
 // Statische Seiten
 Route::view('/ueber-bundu', 'pages.ueber-bundu')->name('ueber-bundu');
@@ -50,3 +41,6 @@ Route::get('/impulse/{slug}', [ImpulsController::class, 'show'])->name('impulse.
 Route::get('/downloads', [DownloadController::class, 'index'])->name('downloads');
 Route::get('/referenzen', [ReferenzController::class, 'index'])->name('referenzen');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+
+// SEO
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');

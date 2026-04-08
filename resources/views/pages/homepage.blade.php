@@ -53,17 +53,24 @@
     {{-- 4. Angebots-Übersicht --}}
     <x-section title="Meine Angebote" subtitle="Professionelle digitale Unterstützung für Familien, Schulen und Institutionen." bgColor="bg-light">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @foreach([
-                ['title' => 'Online Beratung & Coaching', 'desc' => 'Individuelle Unterstützung für Eltern, Familien und Fachpersonen via coachingspace.', 'url' => '/angebote'],
-                ['title' => 'Online Supervision', 'desc' => 'Professionelle digitale Begleitung für Teams und Institutionen.', 'url' => '/angebote'],
-                ['title' => 'Webinare & Kurse', 'desc' => 'Praxisnahe Online-Weiterbildungen zu Neuer Autorität und Systemik.', 'url' => '/angebote'],
-            ] as $offer)
-                <a href="{{ url($offer['url']) }}" class="group bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
-                    <h3 class="font-heading text-lg font-bold text-navy mb-3 group-hover:text-teal transition-colors">{{ $offer['title'] }}</h3>
-                    <p class="text-ink/70 text-sm mb-4">{{ $offer['desc'] }}</p>
+            @forelse($angebote as $angebot)
+                <a href="{{ route('angebote.show', $angebot->slug) }}" class="group bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="font-heading text-lg font-bold text-navy mb-3 group-hover:text-teal transition-colors">{{ $angebot->titel }}</h3>
+                    <p class="text-ink/70 text-sm mb-4 line-clamp-3">{{ $angebot->kurzbeschreibung }}</p>
                     <span class="text-teal font-medium text-sm">Mehr erfahren →</span>
                 </a>
-            @endforeach
+            @empty
+                @foreach([
+                    ['title' => 'Online Beratung & Coaching', 'desc' => 'Individuelle Unterstützung für Eltern, Familien und Fachpersonen via coachingspace.'],
+                    ['title' => 'Online Supervision', 'desc' => 'Professionelle digitale Begleitung für Teams und Institutionen.'],
+                    ['title' => 'Webinare & Kurse', 'desc' => 'Praxisnahe Online-Weiterbildungen zu Neuer Autorität und Systemik.'],
+                ] as $offer)
+                    <div class="bg-white rounded-xl p-8 shadow-sm">
+                        <h3 class="font-heading text-lg font-bold text-navy mb-3">{{ $offer['title'] }}</h3>
+                        <p class="text-ink/70 text-sm">{{ $offer['desc'] }}</p>
+                    </div>
+                @endforeach
+            @endforelse
         </div>
         <div class="text-center mt-10">
             <x-cta-button text="Alle Angebote ansehen" url="/angebote" variant="secondary" />
@@ -73,24 +80,36 @@
     {{-- 5. Themen-Hub --}}
     <x-section title="Aktuelle Themen" subtitle="Fachwissen und Orientierung zu den Herausforderungen, die dich beschäftigen.">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach([
-                ['title' => 'Neue Autorität', 'desc' => 'Beziehung statt Macht – der Ansatz für nachhaltige Erziehung.', 'url' => '/themen'],
-                ['title' => 'Systemische Beratung', 'desc' => 'Den Blick aufs ganze System richten – Lösungen im Kontext finden.', 'url' => '/themen'],
-                ['title' => 'Coaching für Eltern', 'desc' => 'Stärkung der eigenen Haltung und Handlungskompetenz.', 'url' => '/themen'],
-                ['title' => 'Teamentwicklung', 'desc' => 'Resiliente Teams durch professionelle Begleitung.', 'url' => '/themen'],
-                ['title' => 'Schutzkonzepte', 'desc' => 'Klare Strukturen zur Prävention von Grenzverletzungen.', 'url' => '/themen'],
-                ['title' => 'Supervision', 'desc' => 'Reflexion und Weiterentwicklung für Fachpersonen.', 'url' => '/themen'],
-            ] as $thema)
-                <a href="{{ url($thema['url']) }}" class="group flex items-start gap-3 p-4 rounded-lg hover:bg-light transition-colors">
+            @forelse($themen as $thema)
+                <a href="{{ route('themen.show', $thema->slug) }}" class="group flex items-start gap-3 p-4 rounded-lg hover:bg-light transition-colors">
                     <span class="text-teal mt-1">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                     </span>
                     <div>
-                        <h3 class="font-heading text-base font-bold text-navy group-hover:text-teal transition-colors">{{ $thema['title'] }}</h3>
-                        <p class="text-ink/60 text-sm">{{ $thema['desc'] }}</p>
+                        <h3 class="font-heading text-base font-bold text-navy group-hover:text-teal transition-colors">{{ $thema->titel }}</h3>
+                        <p class="text-ink/60 text-sm">{{ Str::limit($thema->einleitung, 80) }}</p>
                     </div>
                 </a>
-            @endforeach
+            @empty
+                @foreach([
+                    ['title' => 'Neue Autorität', 'desc' => 'Beziehung statt Macht – der Ansatz für nachhaltige Erziehung.'],
+                    ['title' => 'Systemische Beratung', 'desc' => 'Den Blick aufs ganze System richten – Lösungen im Kontext finden.'],
+                    ['title' => 'Coaching für Eltern', 'desc' => 'Stärkung der eigenen Haltung und Handlungskompetenz.'],
+                    ['title' => 'Teamentwicklung', 'desc' => 'Resiliente Teams durch professionelle Begleitung.'],
+                    ['title' => 'Schutzkonzepte', 'desc' => 'Klare Strukturen zur Prävention von Grenzverletzungen.'],
+                    ['title' => 'Supervision', 'desc' => 'Reflexion und Weiterentwicklung für Fachpersonen.'],
+                ] as $t)
+                    <div class="flex items-start gap-3 p-4 rounded-lg">
+                        <span class="text-teal mt-1">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        </span>
+                        <div>
+                            <h3 class="font-heading text-base font-bold text-navy">{{ $t['title'] }}</h3>
+                            <p class="text-ink/60 text-sm">{{ $t['desc'] }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            @endforelse
         </div>
         <div class="text-center mt-10">
             <x-cta-button text="Alle Themen entdecken" url="/themen" variant="ghost" />
@@ -130,18 +149,44 @@
     {{-- 7. Lead-Bereich / Blog-Teaser --}}
     <x-section title="Aktuelles aus dem Blog" subtitle="Impulse, Fachwissen und praktische Tipps für deinen Familienalltag.">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @for($i = 0; $i < 3; $i++)
-                <article class="bg-light rounded-xl overflow-hidden group">
-                    <div class="h-48 bg-navy/5 flex items-center justify-center text-ink/20">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/></svg>
-                    </div>
+            @forelse($impulse as $item)
+                <a href="{{ route('impulse.show', $item->slug) }}" class="group bg-light rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+                    @if($item->featured_image)
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('{{ asset('storage/' . $item->featured_image) }}')"></div>
+                    @else
+                        <div class="h-48 bg-navy/5 flex items-center justify-center text-ink/20">
+                            <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/></svg>
+                        </div>
+                    @endif
                     <div class="p-6">
-                        <span class="text-xs font-medium text-teal uppercase tracking-wider">Impulse</span>
-                        <h3 class="font-heading text-lg font-bold text-navy mt-2 mb-2 group-hover:text-teal transition-colors">Beitrag wird geladen…</h3>
-                        <p class="text-ink/60 text-sm">Die aktuellsten Impulse erscheinen hier, sobald das Content-System aktiv ist.</p>
+                        <div class="flex items-center gap-3 mb-2">
+                            @if($item->kategorie)
+                                <span class="text-xs font-medium text-teal uppercase tracking-wider">{{ ucfirst(str_replace('-', ' ', $item->kategorie)) }}</span>
+                            @endif
+                            @if($item->datum)
+                                <span class="text-xs text-ink/40">{{ $item->datum->format('d.m.Y') }}</span>
+                            @endif
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-navy mt-1 mb-2 group-hover:text-teal transition-colors line-clamp-2">{{ $item->titel }}</h3>
+                        @if($item->intro)
+                            <p class="text-ink/60 text-sm line-clamp-2">{{ $item->intro }}</p>
+                        @endif
                     </div>
-                </article>
-            @endfor
+                </a>
+            @empty
+                @for($i = 0; $i < 3; $i++)
+                    <article class="bg-light rounded-xl overflow-hidden">
+                        <div class="h-48 bg-navy/5 flex items-center justify-center text-ink/20">
+                            <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/></svg>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-medium text-teal uppercase tracking-wider">Impulse</span>
+                            <h3 class="font-heading text-lg font-bold text-navy mt-2 mb-2">Beitrag wird geladen…</h3>
+                            <p class="text-ink/60 text-sm">Die aktuellsten Impulse erscheinen hier nach dem Go-Live.</p>
+                        </div>
+                    </article>
+                @endfor
+            @endforelse
         </div>
         <div class="text-center mt-10">
             <x-cta-button text="Alle Impulse ansehen" url="/impulse" variant="ghost" />
@@ -151,13 +196,17 @@
     {{-- 8. FAQ --}}
     <x-section title="Häufige Fragen" bgColor="bg-light">
         <div class="max-w-3xl mx-auto">
-            <x-faq-accordion :items="[
-                ['frage' => 'Wie läuft ein Erstgespräch ab?', 'antwort' => 'Das Erstgespräch ist kostenlos und unverbindlich. Wir lernen uns kennen, klären dein Anliegen und schauen gemeinsam, welches Angebot am besten passt. Das Gespräch findet online via Videokonferenz statt und dauert ca. 30 Minuten.'],
-                ['frage' => 'Finden die Beratungen online statt?', 'antwort' => 'Ja, alle Beratungen, Coachings und Supervisionen finden online statt – bequem von zu Hause oder vom Arbeitsplatz aus. Ich nutze dafür die DSGVO-konforme Plattform coachingspace.de.'],
-                ['frage' => 'Was kostet eine Beratung?', 'antwort' => 'Die Kosten variieren je nach Angebot und Umfang. Einzelberatungen starten ab CHF 150 pro Stunde. Im kostenlosen Erstgespräch besprechen wir transparent die Konditionen für dein Anliegen.'],
-                ['frage' => 'Für wen sind die Angebote geeignet?', 'antwort' => 'Meine Angebote richten sich an Eltern, Fachpersonen im pädagogischen Bereich und Institutionen in der Deutschschweiz. Ob Erziehungsfragen, Supervision oder Teamentwicklung – gemeinsam finden wir die passende Lösung.'],
-                ['frage' => 'Was ist Neue Autorität?', 'antwort' => 'Neue Autorität ist ein Konzept von Haim Omer, das auf Präsenz, Beharrlichkeit und gewaltlosem Widerstand basiert. Es bietet Eltern und Fachpersonen einen Rahmen, Konflikte deeskalierend und beziehungsorientiert zu lösen.'],
-            ]" />
+            @if($faqs->isNotEmpty())
+                <x-faq-accordion :items="$faqs->map(fn ($f) => ['frage' => $f->frage, 'antwort' => $f->antwort])->toArray()" />
+            @else
+                <x-faq-accordion :items="[
+                    ['frage' => 'Wie läuft ein Erstgespräch ab?', 'antwort' => 'Das Erstgespräch ist kostenlos und unverbindlich. Wir lernen uns kennen, klären dein Anliegen und schauen gemeinsam, welches Angebot am besten passt. Das Gespräch findet online via Videokonferenz statt und dauert ca. 30 Minuten.'],
+                    ['frage' => 'Finden die Beratungen online statt?', 'antwort' => 'Ja, alle Beratungen, Coachings und Supervisionen finden online statt – bequem von zu Hause oder vom Arbeitsplatz aus. Ich nutze dafür die DSGVO-konforme Plattform coachingspace.de.'],
+                    ['frage' => 'Was kostet eine Beratung?', 'antwort' => 'Die Kosten variieren je nach Angebot und Umfang. Einzelberatungen starten ab CHF 150 pro Stunde. Im kostenlosen Erstgespräch besprechen wir transparent die Konditionen für dein Anliegen.'],
+                    ['frage' => 'Für wen sind die Angebote geeignet?', 'antwort' => 'Meine Angebote richten sich an Eltern, Fachpersonen im pädagogischen Bereich und Institutionen in der Deutschschweiz.'],
+                    ['frage' => 'Was ist Neue Autorität?', 'antwort' => 'Neue Autorität ist ein Konzept von Haim Omer, das auf Präsenz, Beharrlichkeit und gewaltlosem Widerstand basiert.'],
+                ]" />
+            @endif
         </div>
     </x-section>
 

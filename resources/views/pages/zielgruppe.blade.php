@@ -105,35 +105,62 @@
     {{-- 3. Passende Angebote --}}
     <x-section title="Passende Angebote">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @foreach($data['angebote'] as $angebot)
-                <a href="{{ url($angebot['url']) }}" class="group bg-light rounded-xl p-8 hover:shadow-md transition-shadow">
-                    <h3 class="font-heading text-lg font-bold text-navy mb-3 group-hover:text-teal transition-colors">{{ $angebot['title'] }}</h3>
-                    <p class="text-ink/70 text-sm mb-4">{{ $angebot['desc'] }}</p>
+            @forelse($angebote as $a)
+                <a href="{{ route('angebote.show', $a->slug) }}" class="group bg-light rounded-xl p-8 hover:shadow-md transition-shadow">
+                    <h3 class="font-heading text-lg font-bold text-navy mb-3 group-hover:text-teal transition-colors">{{ $a->titel }}</h3>
+                    <p class="text-ink/70 text-sm mb-4">{{ Str::limit($a->kurzbeschreibung, 120) }}</p>
                     <span class="text-teal font-medium text-sm">Mehr erfahren →</span>
                 </a>
-            @endforeach
+            @empty
+                @foreach($data['angebote'] as $angebot)
+                    <a href="{{ url($angebot['url']) }}" class="group bg-light rounded-xl p-8 hover:shadow-md transition-shadow">
+                        <h3 class="font-heading text-lg font-bold text-navy mb-3 group-hover:text-teal transition-colors">{{ $angebot['title'] }}</h3>
+                        <p class="text-ink/70 text-sm mb-4">{{ $angebot['desc'] }}</p>
+                        <span class="text-teal font-medium text-sm">Mehr erfahren →</span>
+                    </a>
+                @endforeach
+            @endforelse
         </div>
     </x-section>
 
     {{-- 4. Relevante Themen --}}
     <x-section title="Relevante Themen" bgColor="bg-light">
         <div class="flex flex-wrap justify-center gap-3">
-            @foreach($data['themen'] as $thema)
-                <a href="{{ url('/themen') }}" class="inline-flex items-center px-4 py-2 rounded-full bg-white text-navy font-medium text-sm shadow-sm hover:bg-teal hover:text-white transition-colors">
-                    {{ $thema }}
+            @forelse($themen as $t)
+                <a href="{{ route('themen.show', $t->slug) }}" class="inline-flex items-center px-4 py-2 rounded-full bg-white text-navy font-medium text-sm shadow-sm hover:bg-teal hover:text-white transition-colors">
+                    {{ $t->titel }}
                 </a>
-            @endforeach
+            @empty
+                @foreach($data['themen'] as $thema)
+                    <a href="{{ url('/themen') }}" class="inline-flex items-center px-4 py-2 rounded-full bg-white text-navy font-medium text-sm shadow-sm hover:bg-teal hover:text-white transition-colors">
+                        {{ $thema }}
+                    </a>
+                @endforeach
+            @endforelse
         </div>
     </x-section>
 
     {{-- 5. Referenzen --}}
     <x-section title="Das sagen andere">
         <div class="max-w-2xl mx-auto space-y-6">
-            @foreach($data['testimonials'] as $t)
-                <x-testimonial-card :zitat="$t['zitat']" :name="$t['name']" :organisation="$t['organisation']" />
-            @endforeach
+            @forelse($referenzen as $ref)
+                <x-testimonial-card :zitat="$ref->zitat" :name="$ref->name" :organisation="$ref->organisation" />
+            @empty
+                @foreach($data['testimonials'] as $t)
+                    <x-testimonial-card :zitat="$t['zitat']" :name="$t['name']" :organisation="$t['organisation']" />
+                @endforeach
+            @endforelse
         </div>
     </x-section>
+
+    {{-- 5b. Häufige Fragen --}}
+    @if($faqs->isNotEmpty())
+    <x-section title="Häufige Fragen" bgColor="bg-light">
+        <div class="max-w-3xl mx-auto">
+            <x-faq-accordion :faqs="$faqs->map(fn ($f) => ['frage' => $f->frage, 'antwort' => $f->antwort])->toArray()" />
+        </div>
+    </x-section>
+    @endif
 
     {{-- 6. Abschluss-CTA --}}
     <section class="py-16 lg:py-20 bg-navy text-white">

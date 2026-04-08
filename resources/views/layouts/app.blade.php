@@ -29,6 +29,45 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
+    {{-- JSON-LD: Organization --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "B&U BundU – Walter Uehli",
+        "url": "{{ url('/') }}",
+        "logo": "{{ asset('images/bundu-logo.svg') }}",
+        "description": "Systemische Beratung, Neue Autorität und Coaching – individuell, empathisch und lösungsorientiert.",
+        "founder": {
+            "@type": "Person",
+            "name": "Walter Uehli",
+            "jobTitle": "Systemischer Berater & Coach"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Chur",
+            "addressRegion": "GR",
+            "addressCountry": "CH"
+        },
+        "areaServed": {
+            "@type": "Country",
+            "name": "Switzerland"
+        },
+        "sameAs": []
+    }
+    </script>
+
+    {{-- JSON-LD: WebSite with SearchAction --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "B&U BundU",
+        "url": "{{ url('/') }}"
+    }
+    </script>
+
+    @stack('jsonld')
     @stack('head')
 </head>
 <body class="font-body text-ink bg-white antialiased">
