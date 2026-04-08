@@ -16,11 +16,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Admin User
-        User::factory()->create([
-            'name' => 'Walter Uehli',
-            'email' => 'admin@bundu.ch',
-            'password' => bcrypt('changeme123'),
-        ]);
+        User::updateOrCreate(
+            ['email' => 'admin@bundu.ch'],
+            [
+                'name' => 'Walter Uehli',
+                'password' => bcrypt('changeme123'),
+            ]
+        );
 
         // Call all content seeders
         $this->call([

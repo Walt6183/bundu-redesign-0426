@@ -1,5 +1,5 @@
 @props([
-    'title',
+    'title' => null,
     'subtitle' => null,
     'bgColor' => 'bg-white',
 ])

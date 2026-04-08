@@ -8,9 +8,7 @@
     <title>{{ $metaTitle ?? ($title ?? 'B&U BundU') }} | B&U BundU</title>
     <meta name="description" content="{{ $metaDescription ?? 'Systemische Beratung, Neue Autorität und Coaching – individuell, empathisch und lösungsorientiert.' }}">
 
-    @if(isset($canonical))
-        <link rel="canonical" href="{{ $canonical }}">
-    @endif
+    <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
 
     {{-- Open Graph --}}
     <meta property="og:title" content="{{ $metaTitle ?? ($title ?? 'B&U BundU') }}">
