@@ -14,9 +14,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                 <div class="flex justify-center lg:justify-start">
-                    <div class="w-72 h-72 bg-light rounded-2xl flex items-center justify-center text-navy/20 text-7xl">
-                        WU
-                    </div>
+                    <img src="{{ asset('images/walter-uehli.png') }}" alt="Walter Uehli – Systemischer Berater und Coach" class="w-72 h-72 rounded-2xl object-cover shadow-lg" loading="lazy" />
                 </div>
                 <div>
                     <h2 class="font-heading text-2xl lg:text-3xl font-bold text-navy mb-6">Walter Uehli</h2>

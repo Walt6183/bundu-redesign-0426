@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Mail\ContactFormMail;
 use App\Models\KontaktAnfrage;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class KontaktFormular extends Component
@@ -66,6 +68,8 @@ class KontaktFormular extends Component
             'datenschutz_akzeptiert' => true,
             'status' => 'neu',
         ]);
+
+        Mail::to(config('mail.from.address'))->send(new ContactFormMail($validated));
 
         $this->reset();
         session()->flash('success', 'Vielen Dank für Ihre Nachricht! Ich melde mich innerhalb von 24 Stunden.');

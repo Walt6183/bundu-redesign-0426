@@ -138,9 +138,7 @@
                     <x-cta-button text="Mehr über mich" url="/ueber-bundu" variant="secondary" />
                 </div>
                 <div class="flex justify-center">
-                    <div class="w-64 h-64 bg-navy/10 rounded-full flex items-center justify-center text-navy/30 text-6xl">
-                        WU
-                    </div>
+                    <img src="{{ asset('images/walter-uehli.png') }}" alt="Walter Uehli – Systemischer Berater und Coach" class="w-64 h-64 rounded-full object-cover shadow-lg" loading="lazy" />
                 </div>
             </div>
         </div>

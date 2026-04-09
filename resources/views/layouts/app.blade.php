@@ -27,6 +27,22 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
+    {{-- Google Analytics 4 (nur nach Cookie-Consent) --}}
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        function loadGA4() {
+            if (document.querySelector('script[src*="googletagmanager"]')) return;
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-G775R9XKMV';
+            document.head.appendChild(s);
+            gtag('js', new Date());
+            gtag('config', 'G-G775R9XKMV');
+        }
+        if (localStorage.getItem('cookie_consent') === 'accepted') { loadGA4(); }
+    </script>
+
     {{-- JSON-LD: Organization --}}
     <script type="application/ld+json">
     {
@@ -34,7 +50,7 @@
         "@@type": "ProfessionalService",
         "name": "B&U BundU – Walter Uehli",
         "url": "{{ url('/') }}",
-        "logo": "{{ asset('images/bundu-logo.svg') }}",
+        "logo": "{{ asset('images/logo_2026K.png') }}",
         "description": "Systemische Beratung, Neue Autorität und Coaching – individuell, empathisch und lösungsorientiert.",
         "founder": {
             "@@type": "Person",
@@ -88,5 +104,31 @@
 
     @livewireScripts
     @stack('scripts')
+
+    {{-- Cookie Consent Banner --}}
+    <div id="cookie-banner" class="fixed bottom-0 inset-x-0 z-50 transform transition-transform duration-300" style="display:none">
+        <div class="max-w-4xl mx-auto px-4 pb-4">
+            <div class="bg-navy text-white rounded-xl p-6 shadow-2xl flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div class="flex-1 text-sm leading-relaxed">
+                    Diese Website verwendet Cookies zur Analyse der Nutzung (Google Analytics).
+                    <a href="/datenschutz" class="underline hover:text-teal transition-colors">Mehr erfahren</a>
+                </div>
+                <div class="flex gap-3 shrink-0">
+                    <button onclick="cookieConsent('declined')" class="px-4 py-2 text-sm border border-white/30 rounded-lg hover:bg-white/10 transition-colors">Ablehnen</button>
+                    <button onclick="cookieConsent('accepted')" class="px-4 py-2 text-sm bg-teal rounded-lg hover:bg-teal/90 transition-colors font-medium">Akzeptieren</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function cookieConsent(choice) {
+            localStorage.setItem('cookie_consent', choice);
+            document.getElementById('cookie-banner').style.display = 'none';
+            if (choice === 'accepted') { loadGA4(); }
+        }
+        if (!localStorage.getItem('cookie_consent')) {
+            document.getElementById('cookie-banner').style.display = 'block';
+        }
+    </script>
 </body>
 </html>

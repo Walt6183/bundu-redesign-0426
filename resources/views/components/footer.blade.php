@@ -4,7 +4,10 @@
 
             {{-- Spalte 1: Marke --}}
             <div class="md:col-span-1">
-                <span class="font-heading text-xl font-bold">B&U BundU</span>
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-2">
+                    <img src="{{ asset('images/logo_2026K.png') }}" alt="B&U BundU Logo" class="h-10 w-auto">
+                    <span class="font-heading text-xl font-bold">B&U BundU</span>
+                </a>
                 <p class="mt-3 text-sm text-white/70">
                     Systemische Beratung, Neue Autorität und Coaching – individuell, empathisch und lösungsorientiert.
                 </p>

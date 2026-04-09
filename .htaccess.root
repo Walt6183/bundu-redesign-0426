@@ -1,6 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # www → non-www redirect
+    RewriteCond %{HTTP_HOST} ^www\.bundu\.ch$ [NC]
+    RewriteRule ^(.*)$ https://bundu.ch/$1 [R=301,L]
+
     # Exclude deployment script
     RewriteRule ^_deploy\.php$ - [L]
 

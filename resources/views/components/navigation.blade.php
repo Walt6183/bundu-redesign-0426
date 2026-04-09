@@ -4,6 +4,7 @@
 
             {{-- Logo --}}
             <a href="{{ url('/') }}" class="flex items-center gap-2">
+                <img src="{{ asset('images/logo_2026K.png') }}" alt="B&U BundU Logo" class="h-10 w-auto">
                 <span class="font-heading text-xl font-bold text-navy">B&U BundU</span>
             </a>
 

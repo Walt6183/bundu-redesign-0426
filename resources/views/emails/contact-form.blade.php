@@ -30,25 +30,23 @@
                 <div class="field-label">E-Mail</div>
                 <div class="field-value"><a href="mailto:{{ $formData['email'] }}">{{ $formData['email'] }}</a></div>
             </div>
-            @if(!empty($formData['phone']))
             <div class="field">
-                <div class="field-label">Telefon</div>
-                <div class="field-value">{{ $formData['phone'] }}</div>
+                <div class="field-label">Ich bin</div>
+                <div class="field-value">{{ $formData['ich_bin'] }}</div>
             </div>
-            @endif
-            @if(!empty($formData['service']))
+            @if(!empty($formData['institution']))
             <div class="field">
-                <div class="field-label">Gewünschte Leistung</div>
-                <div class="field-value">{{ $formData['service'] }}</div>
+                <div class="field-label">Institution</div>
+                <div class="field-value">{{ $formData['institution'] }}</div>
             </div>
             @endif
             <div class="field">
                 <div class="field-label">Betreff</div>
-                <div class="field-value">{{ $formData['subject'] }}</div>
+                <div class="field-value">{{ $formData['betreff'] }}</div>
             </div>
             <div class="field">
                 <div class="field-label">Nachricht</div>
-                <div class="message-box">{{ $formData['message'] }}</div>
+                <div class="message-box">{{ $formData['nachricht'] }}</div>
             </div>
         </div>
         <div class="footer">
