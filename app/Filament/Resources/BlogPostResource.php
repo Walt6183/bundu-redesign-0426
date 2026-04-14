@@ -49,7 +49,7 @@ class BlogPostResource extends Resource
                         Forms\Components\RichEditor::make('content')
                             ->label('Inhalt')
                             ->required()
-                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsDisk('public_media')
                             ->fileAttachmentsDirectory('media/blog')
                             ->columnSpanFull(),
                     ])->columns(2),
@@ -59,7 +59,7 @@ class BlogPostResource extends Resource
                         Forms\Components\FileUpload::make('cover_image')
                             ->label('Cover-Bild')
                             ->image()
-                            ->disk('public')
+                            ->disk('public_media')
                             ->directory('media/blog-covers')
                             ->imageResizeMode('cover')
                             ->imageCropAspectRatio('16:9')
@@ -121,7 +121,7 @@ class BlogPostResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
                     ->label('Bild')
-                    ->disk('public')
+                    ->disk('public_media')
                     ->circular()
                     ->defaultImageUrl('/blog-placeholder.png'),
                 Tables\Columns\TextColumn::make('title')

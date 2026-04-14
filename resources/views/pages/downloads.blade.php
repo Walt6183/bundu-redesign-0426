@@ -50,7 +50,7 @@
                             <span class="text-xs text-ink/40 mb-3">Für: {{ ucfirst($download->zielgruppe) }}</span>
                         @endif
                         @if($download->datei)
-                            <a href="{{ asset('storage/' . $download->datei) }}" target="_blank" download
+                            <a href="{{ asset($download->datei) }}" target="_blank" download
                                class="inline-flex items-center justify-center px-4 py-2 bg-teal text-white text-sm font-medium rounded-lg hover:bg-navy transition-colors mt-auto">
                                 ↓ Herunterladen
                             </a>

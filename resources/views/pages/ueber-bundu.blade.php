@@ -19,17 +19,38 @@
                 <div>
                     <h2 class="font-heading text-2xl lg:text-3xl font-bold text-navy mb-6">Walter Uehli</h2>
                     <p class="text-ink/80 mb-4">
-                        Mit 65 Jahren und über 20 Jahren Erfahrung in der stationären Kinder- und Jugendhilfe bringe ich
-                        fundiertes Praxiswissen mit. In Schulheimen war ich zunächst als Pädagogischer Leiter und seit
-                        2015 als Gesamtleiter tätig. Mit dem Ende des Schuljahres 2025/26 gehe ich in Pension – und habe
-                        damit wieder Zeit, mich voll meinem Unternehmen B&U BundU zu widmen.
+                        Ich kenne die Arbeit mit Kindern, Jugendlichen und Familien von innen. Mehr als 25 Jahre habe ich
+                        in der stationären Kinder- und Jugendhilfe gearbeitet, zunächst als Pädagogischer Leiter, ab 2015
+                        als Gesamtleiter eines Schulheims. Parallel dazu war ich als diplomierter Paar- und Familientherapeut
+                        ZAK tätig und habe Familien in belasteten Lebenssituationen begleitet. In dieser Zeit habe ich erlebt,
+                        wie viel von der Beziehungsqualität zwischen Erwachsenen und Kindern abhängt, und wie wenig davon mit
+                        Druck allein zu erreichen ist.
+                    </p>
+                    <p class="text-ink/80 mb-4">
+                        Heute begleite ich Familien, pädagogische Fachpersonen und Institutionen als systemischer Berater und
+                        Coach. Mein Ansatz, das BundU-Prinzip, integriert die Methoden der Neuen Autorität nach Haim Omer,
+                        lösungsfokussierte Gesprächsführung und systemisches Denken. In der Praxis bedeutet das: Ich arbeite
+                        nicht gegen Widerstand, sondern helfe, tragfähige Beziehungen wiederherzustellen, klare Haltungen zu
+                        entwickeln und Eskalationen zu unterbrechen, bevor sie sich festigen.
+                    </p>
+                    <p class="text-ink/80 mb-4">
+                        Als akkreditierter Berater des Bündner Standards begleite ich Institutionen in der Deutschschweiz und
+                        im deutschsprachigen Raum bei der Einführung dieses praxiserprobten Instruments. Der Bündner Standard
+                        umfasst zehn Kernelemente zur strukturierten Erfassung und professionellen Bearbeitung von
+                        Grenzverletzungen im organisierten Kontext und schafft damit eine verlässliche Grundlage für den
+                        Schutz aller Beteiligten.
+                    </p>
+                    <p class="text-ink/80 mb-4">
+                        Beratung und Coaching biete ich persönlich sowie über eine DSGVO-konforme Online-Plattform an, die
+                        eine ortsunabhängige Zusammenarbeit ermöglicht. Institutionen, die den Bündner Standard einführen oder
+                        ihr Schutzkonzept weiterentwickeln möchten, begleite ich im Rahmen von massgeschneiderten Projekten,
+                        von der Analyse bis zur nachhaltigen Verankerung im Alltag.
                     </p>
                     <p class="text-ink/80 mb-6">
-                        Meine Arbeit basiert auf dem BundU-Prinzip – einem integrativen Ansatz, der bewährte Methoden der
-                        Neuen Autorität, lösungsfokussierte Ansätze und systemische Gesprächsführung verbindet.
+                        Das Wissen, das ich weitergebe, habe ich selbst angewendet, überprüft und angepasst.
                     </p>
                     <div class="flex flex-wrap gap-3">
-                        @foreach(['Dipl. Sozialpädagoge', 'Coach für Neue Autorität', 'SVEB I'] as $badge)
+                        @foreach(['Dipl. Sozialpädagoge FH', 'Coach für Neue Autorität', 'Berater Bündner Standard', 'Dipl. Paar- und Familientherapeut ZAK', 'SVEB I'] as $badge)
                             <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-teal/10 text-teal">{{ $badge }}</span>
                         @endforeach
                     </div>
@@ -38,18 +59,19 @@
         </div>
     </section>
 
-    {{-- Mission & Haltung --}}
-    <x-section title="Mission & Haltung" bgColor="bg-light">
+    {{-- Haltung & Anspruch --}}
+    <x-section title="Haltung & Anspruch" bgColor="bg-light">
         <div class="max-w-3xl mx-auto space-y-6 text-ink/80">
             <p>
-                B&U BundU steht für <strong class="text-navy">Beratung & Unterstützung</strong>. Mein Ziel ist es,
-                Eltern, Fachpersonen und Institutionen darin zu stärken, tragfähige Beziehungen zu gestalten –
-                mit professionellen Methoden, die im Alltag wirklich funktionieren.
+                B&U BundU steht für Beratung und Unterstützung. Ich begleite Eltern, Fachpersonen und Institutionen
+                dabei, tragfähige Beziehungen zu gestalten. Im Zentrum stehen Methoden, die im Alltag wirksam und
+                umsetzbar sind.
             </p>
             <p>
-                Ich glaube an gewaltfreie Autorität, die auf Präsenz, Transparenz und Beharrlichkeit basiert.
-                An Coaching, das die Ressourcen des Gegenübers aktiviert. Und an Beratung auf Augenhöhe –
-                empathisch, respektvoll und lösungsorientiert.
+                Grundlage meiner Arbeit ist eine gewaltfreie Autorität. Sie zeigt sich in Präsenz, Klarheit und
+                Beharrlichkeit. Coaching verstehe ich als Prozess, der vorhandene Ressourcen stärkt und neue
+                Handlungsmöglichkeiten eröffnet. Die Beratung erfolgt auf Augenhöhe, empathisch, respektvoll
+                und konsequent lösungsorientiert.
             </p>
         </div>
     </x-section>

@@ -19,7 +19,7 @@ class EditMedia extends EditRecord
                 ->label('Löschen')
                 ->after(function () {
                     $record = $this->record;
-                    Storage::disk($record->disk ?? 'public')->delete($record->file_path);
+                    Storage::disk($record->disk ?? 'public_media')->delete($record->file_path);
                 }),
         ];
     }
@@ -29,7 +29,7 @@ class EditMedia extends EditRecord
         // Update file metadata if file was changed
         if (!empty($data['file_path'])) {
             $path = $data['file_path'];
-            $disk = $data['disk'] ?? 'public';
+            $disk = $data['disk'] ?? 'public_media';
 
             if (Storage::disk($disk)->exists($path)) {
                 $data['file_name'] = basename($path);

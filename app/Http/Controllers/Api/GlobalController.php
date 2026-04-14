@@ -57,7 +57,7 @@ class GlobalController extends Controller
         foreach ($data as $key => $value) {
             if (in_array($key, $imageKeys) && is_string($value) && !empty($value)) {
                 if (!str_starts_with($value, 'http://') && !str_starts_with($value, 'https://') && !str_starts_with($value, '/')) {
-                    $data[$key] = Storage::disk('public')->url($value);
+                    $data[$key] = Storage::disk('public_media')->url($value);
                 }
             } elseif (is_array($value)) {
                 $data[$key] = $this->resolveAssetUrls($value);

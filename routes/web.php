@@ -5,6 +5,7 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImpulsController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReferenzController;
 use App\Http\Controllers\ThemaController;
 use Illuminate\Support\Facades\Route;
@@ -15,18 +16,18 @@ use Illuminate\Support\Facades\Route;
 // Frontend Routes (Blade + Livewire)
 // ==========================================
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [PageController::class, 'home'])->name('home');
 
 // Zielgruppen-Landingpages
 Route::get('/fuer-eltern', fn () => app(HomeController::class)->zielgruppe('eltern'))->name('fuer-eltern');
 Route::get('/fuer-fachpersonen', fn () => app(HomeController::class)->zielgruppe('fachpersonen'))->name('fuer-fachpersonen');
 Route::get('/fuer-institutionen', fn () => app(HomeController::class)->zielgruppe('institutionen'))->name('fuer-institutionen');
 
-// Statische Seiten
-Route::view('/ueber-bundu', 'pages.ueber-bundu')->name('ueber-bundu');
-Route::view('/kontakt', 'pages.kontakt')->name('kontakt');
-Route::view('/impressum', 'pages.impressum')->name('impressum');
-Route::view('/datenschutz', 'pages.datenschutz')->name('datenschutz');
+// Statische Seiten → ab Phase 3 via PageController (CMS)
+// Migriert: ueber-bundu, haltung-und-anspruch, walter-uehli, kontakt, impressum, datenschutz
+
+// Redirect: Online-Kurse → CMS-Kursseite
+Route::redirect('/angebote/online-kurse', '/courses', 301);
 
 // Dynamische Inhalte (Controller mit Eloquent)
 Route::get('/angebote', [AngebotController::class, 'index'])->name('angebote');
@@ -44,3 +45,6 @@ Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
 // SEO
 Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
+
+// CMS Pages (Catch-All – muss am Ende stehen!)
+Route::get('/{slug}', [PageController::class, 'show'])->where('slug', '[\w\-\/]+')->name('page.show');

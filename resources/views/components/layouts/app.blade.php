@@ -32,6 +32,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
+    {{-- PrivacyBee Widget --}}
+    @php $pbWidgetId = \App\Models\Global_::where('key', 'site')->first()?->content['externalLinks']['privacyBeeWidgetId'] ?? null; @endphp
+    @if($pbWidgetId)
+    <script src="https://app.privacybee.io/imprint-widget.js"></script>
+    <script src="https://app.privacybee.io/widget.js" defer></script>
+    @endif
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 

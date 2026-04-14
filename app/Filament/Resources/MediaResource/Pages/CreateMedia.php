@@ -21,7 +21,7 @@ class CreateMedia extends CreateRecord
         // Resolve file metadata from the uploaded file
         if (!empty($data['file_path'])) {
             $path = $data['file_path'];
-            $disk = $data['disk'] ?? 'public';
+            $disk = $data['disk'] ?? 'public_media';
 
             if (Storage::disk($disk)->exists($path)) {
                 $data['file_name'] = $data['file_name'] ?: basename($path);

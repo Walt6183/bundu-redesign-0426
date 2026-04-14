@@ -22,3 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Deploy/Debug Scripts (server only)
+/public/_*.php

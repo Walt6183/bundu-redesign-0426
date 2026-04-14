@@ -10,6 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use App\Models\Media;
 
 class ThemaResource extends Resource
 {
@@ -71,10 +72,20 @@ class ThemaResource extends Resource
 
                 Forms\Components\Section::make('Bild & SEO')
                     ->schema([
+                        Forms\Components\Select::make('media_auswahl')
+                            ->label('Aus Mediathek wählen')
+                            ->options(fn () => Media::where('file_type', 'image')->orderBy('name')->pluck('name', 'file_path'))
+                            ->searchable()
+                            ->placeholder('Bild aus Mediathek wählen...')
+                            ->dehydrated(false)
+                            ->live()
+                            ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $state ? $set('featured_image', $state) : null),
+
                         Forms\Components\FileUpload::make('featured_image')
-                            ->label('Bild')
+                            ->label('Oder neues Bild hochladen')
                             ->image()
-                            ->directory('themen')
+                            ->disk('public_media')
+                            ->directory('media/themen')
                             ->maxSize(5120),
 
                         Forms\Components\TextInput::make('meta_titel')

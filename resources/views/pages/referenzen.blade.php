@@ -17,7 +17,7 @@
                 @foreach($referenzen as $referenz)
                     <div class="bg-white rounded-xl p-8 shadow-sm border border-light flex gap-6 items-start">
                         @if($referenz->bild)
-                            <img src="{{ asset('storage/' . $referenz->bild) }}" alt="{{ $referenz->name }}" class="w-16 h-16 rounded-full object-cover shrink-0">
+                            <img src="{{ asset($referenz->bild) }}" alt="{{ $referenz->name }}" class="w-16 h-16 rounded-full object-cover shrink-0">
                         @endif
                         <div>
                             <blockquote class="text-ink/80 italic mb-3">«{{ $referenz->zitat }}»</blockquote>

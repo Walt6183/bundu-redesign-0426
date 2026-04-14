@@ -27,10 +27,20 @@ class KontaktFormular extends Component
             'email' => 'required|email|max:150',
             'ich_bin' => 'required|in:eltern,fachperson,institution,andere',
             'institution' => 'nullable|string|max:150',
-            'betreff' => 'required|string|max:200',
             'nachricht' => 'required|string|max:5000',
             'datenschutz_akzeptiert' => 'accepted',
         ];
+    }
+
+    private function betreffFromIchBin(): string
+    {
+        return match ($this->ich_bin) {
+            'eltern' => 'Beratung für Eltern',
+            'fachperson' => 'Fachberatung / Coaching',
+            'institution' => 'Angebot für Institutionen',
+            'andere' => 'Allgemeine Informationen',
+            default => 'Kontaktanfrage',
+        };
     }
 
     protected function messages(): array
@@ -58,17 +68,20 @@ class KontaktFormular extends Component
 
         $validated = $this->validate();
 
+        $betreff = $this->betreffFromIchBin();
+
         KontaktAnfrage::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'ich_bin' => $validated['ich_bin'],
             'institution' => $validated['institution'] ?? null,
-            'betreff' => $validated['betreff'],
+            'betreff' => $betreff,
             'nachricht' => $validated['nachricht'],
             'datenschutz_akzeptiert' => true,
             'status' => 'neu',
         ]);
 
+        $validated['betreff'] = $betreff;
         Mail::to(config('mail.from.address'))->send(new ContactFormMail($validated));
 
         $this->reset();

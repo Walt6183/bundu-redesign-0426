@@ -77,7 +77,7 @@ class PageResource extends Resource
                                         Forms\Components\FileUpload::make('backgroundImage')
                                             ->label('Hintergrundbild')
                                             ->image()
-                                            ->disk('public')
+                                            ->disk('public_media')
                                             ->directory('media/heroes'),
                                         Forms\Components\Actions::make([
                                             MediaPicker::action('backgroundImage'),
@@ -173,6 +173,30 @@ class PageResource extends Resource
                                             ])
                                             ->collapsible()
                                             ->defaultItems(0),
+                                    ]),
+
+                                // ===== SERVICES AUTO BLOCK =====
+                                Forms\Components\Builder\Block::make('services_auto')
+                                    ->label('Angebote aus DB (automatisch)')
+                                    ->icon('heroicon-o-rectangle-stack')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('title')
+                                            ->label('Überschrift')
+                                            ->default('Meine Angebote'),
+                                        Forms\Components\TextInput::make('titleHighlight')
+                                            ->label('Überschrift-Hervorhebung'),
+                                        Forms\Components\TextInput::make('subtitle')
+                                            ->label('Untertitel'),
+                                        Forms\Components\TextInput::make('limit')
+                                            ->label('Anzahl Angebote')
+                                            ->numeric()
+                                            ->default(3),
+                                        Forms\Components\TextInput::make('ctaText')
+                                            ->label('CTA-Button Text')
+                                            ->default('Alle Angebote ansehen'),
+                                        Forms\Components\TextInput::make('ctaUrl')
+                                            ->label('CTA-Button Link')
+                                            ->default('/angebote'),
                                     ]),
 
                                 // ===== SERVICE DETAIL BLOCK =====
@@ -429,7 +453,7 @@ class PageResource extends Resource
                                         Forms\Components\FileUpload::make('photo')
                                             ->label('Foto')
                                             ->image()
-                                            ->disk('public')
+                                            ->disk('public_media')
                                             ->directory('media/portraits'),
                                         Forms\Components\Actions::make([
                                             MediaPicker::action('photo'),
@@ -497,7 +521,7 @@ class PageResource extends Resource
                                                     ->label('Typ (z.B. PDF, Checkliste)'),
                                                 Forms\Components\FileUpload::make('file')
                                                     ->label('Datei')
-                                                    ->disk('public')
+                                                    ->disk('public_media')
                                                     ->directory('media/downloads')
                                                     ->acceptedFileTypes(['application/pdf', 'application/zip']),
                                                 Forms\Components\Actions::make([
@@ -554,7 +578,7 @@ class PageResource extends Resource
                                                 Forms\Components\FileUpload::make('cover')
                                                     ->label('Cover-Bild')
                                                     ->image()
-                                                    ->disk('public')
+                                                    ->disk('public_media')
                                                     ->directory('media/books'),
                                                 Forms\Components\Actions::make([
                                                     MediaPicker::action('cover'),
@@ -642,6 +666,55 @@ class PageResource extends Resource
                                             ->default(3),
                                     ]),
 
+                                // ===== THEMEN LISTING BLOCK =====
+                                Forms\Components\Builder\Block::make('themen_listing')
+                                    ->label('Themen aus DB (automatisch)')
+                                    ->icon('heroicon-o-tag')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('title')
+                                            ->label('Überschrift')
+                                            ->default('Aktuelle Themen'),
+                                        Forms\Components\TextInput::make('titleHighlight')
+                                            ->label('Überschrift-Hervorhebung'),
+                                        Forms\Components\TextInput::make('subtitle')
+                                            ->label('Untertitel'),
+                                        Forms\Components\TextInput::make('limit')
+                                            ->label('Anzahl Themen')
+                                            ->numeric()
+                                            ->default(6),
+                                        Forms\Components\TextInput::make('ctaText')
+                                            ->label('CTA-Button Text')
+                                            ->default('Alle Themen entdecken'),
+                                        Forms\Components\TextInput::make('ctaUrl')
+                                            ->label('CTA-Button Link')
+                                            ->default('/themen'),
+                                    ]),
+
+                                // ===== FAQ LISTING BLOCK =====
+                                Forms\Components\Builder\Block::make('faq_listing')
+                                    ->label('FAQs aus DB (automatisch)')
+                                    ->icon('heroicon-o-question-mark-circle')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('title')
+                                            ->label('Überschrift')
+                                            ->default('Häufige Fragen'),
+                                        Forms\Components\TextInput::make('titleHighlight')
+                                            ->label('Überschrift-Hervorhebung'),
+                                        Forms\Components\TextInput::make('limit')
+                                            ->label('Anzahl FAQs')
+                                            ->numeric()
+                                            ->default(5),
+                                        Forms\Components\Select::make('zielgruppe')
+                                            ->label('Zielgruppe')
+                                            ->options([
+                                                'alle' => 'Alle',
+                                                'eltern' => 'Eltern',
+                                                'fachpersonen' => 'Fachpersonen',
+                                                'institutionen' => 'Institutionen',
+                                            ])
+                                            ->default('alle'),
+                                    ]),
+
                                 // ===== WIDGET EMBED BLOCK =====
                                 Forms\Components\Builder\Block::make('widget_embed')
                                     ->label('Widget / Embed')
@@ -653,6 +726,7 @@ class PageResource extends Resource
                                             ->label('Widget-Typ')
                                             ->options([
                                                 'privacybee' => 'PrivacyBee (Datenschutz)',
+                                                'privacybee-imprint' => 'PrivacyBee (Impressum)',
                                                 'custom' => 'Benutzerdefiniert',
                                             ]),
                                         Forms\Components\TextInput::make('widgetId')

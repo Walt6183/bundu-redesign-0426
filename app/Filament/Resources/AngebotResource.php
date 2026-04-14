@@ -10,6 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use App\Models\Media;
 
 class AngebotResource extends Resource
 {
@@ -92,10 +93,20 @@ class AngebotResource extends Resource
                                 Forms\Components\TextInput::make('cta_url')
                                     ->label('CTA URL'),
 
+                                Forms\Components\Select::make('media_auswahl')
+                                    ->label('Aus Mediathek wählen')
+                                    ->options(fn () => Media::where('file_type', 'image')->orderBy('name')->pluck('name', 'file_path'))
+                                    ->searchable()
+                                    ->placeholder('Bild aus Mediathek wählen...')
+                                    ->dehydrated(false)
+                                    ->live()
+                                    ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $state ? $set('featured_image', $state) : null),
+
                                 Forms\Components\FileUpload::make('featured_image')
-                                    ->label('Bild')
+                                    ->label('Oder neues Bild hochladen')
                                     ->image()
-                                    ->directory('angebote')
+                                    ->disk('public_media')
+                                    ->directory('media/angebote')
                                     ->maxSize(5120),
                             ]),
 

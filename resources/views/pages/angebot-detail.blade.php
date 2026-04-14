@@ -105,7 +105,7 @@
                     {{-- Bild --}}
                     @if($angebot->featured_image)
                         <div class="rounded-xl overflow-hidden">
-                            <img src="{{ asset('storage/' . $angebot->featured_image) }}" alt="{{ $angebot->titel }}" class="w-full h-auto">
+                            <img src="{{ asset($angebot->featured_image) }}" alt="{{ $angebot->titel }}" class="w-full h-auto">
                         </div>
                     @endif
                 </aside>

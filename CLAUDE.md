@@ -142,3 +142,6 @@
 - [x] Cookie-Consent-Banner (Alpine.js, DSGVO-konform)
 - [ ] Echte Inhalte einpflegen (aktuell: Seeder-Daten)
 - [ ] Backup-Strategie für DB definieren
+- [ ] Newsletteranbindung
+- [ ] Kontakte (Google Booking hinzufügen)
+- [ ] Podcast auf Homepage verlinken

@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use App\Models\Media;
 
 class DownloadResource extends Resource
 {
@@ -36,8 +37,19 @@ class DownloadResource extends Resource
                 Forms\Components\Textarea::make('beschreibung')
                     ->rows(3),
 
+                Forms\Components\Select::make('media_auswahl')
+                    ->label('Aus Mediathek wählen')
+                    ->options(fn () => Media::whereIn('file_type', ['document', 'pdf', 'spreadsheet'])->orderBy('name')->pluck('name', 'file_path'))
+                    ->searchable()
+                    ->placeholder('Datei aus Mediathek wählen...')
+                    ->dehydrated(false)
+                    ->live()
+                    ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $state ? $set('datei', $state) : null),
+
                 Forms\Components\FileUpload::make('datei')
-                    ->directory('downloads')
+                    ->label('Oder neue Datei hochladen')
+                    ->disk('public_media')
+                    ->directory('media/downloads')
                     ->maxSize(20480)
                     ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']),
 

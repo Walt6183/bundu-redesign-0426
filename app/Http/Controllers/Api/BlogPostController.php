@@ -90,6 +90,6 @@ class BlogPostController extends Controller
         }
 
         // Storage path — resolve to URL
-        return Storage::disk('public')->url($path);
+        return Storage::disk('public_media')->url($path);
     }
 }

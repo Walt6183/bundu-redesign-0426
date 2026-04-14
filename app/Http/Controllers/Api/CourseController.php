@@ -84,6 +84,6 @@ class CourseController extends Controller
         if (str_starts_with($path, '/')) {
             return $path;
         }
-        return Storage::disk('public')->url($path);
+        return Storage::disk('public_media')->url($path);
     }
 }

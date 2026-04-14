@@ -29,7 +29,7 @@ class Media extends Model
      */
     public function getUrlAttribute(): string
     {
-        return \Illuminate\Support\Facades\Storage::disk($this->disk ?? 'public')->url($this->file_path);
+        return \Illuminate\Support\Facades\Storage::disk($this->disk ?? 'public_media')->url($this->file_path);
     }
 
     /**

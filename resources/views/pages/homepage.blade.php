@@ -123,15 +123,19 @@
                 <div>
                     <h2 class="font-heading text-2xl lg:text-3xl font-bold text-navy mb-6">Walter Uehli</h2>
                     <p class="text-ink/80 mb-4">
-                        Mit über 20 Jahren Erfahrung in der stationären Kinder- und Jugendhilfe bringe ich fundiertes Praxiswissen mit.
-                        In Schulheimen war ich zunächst als Pädagogischer Leiter und seit 2015 als Gesamtleiter tätig.
+                        Über 25 Jahre Arbeit in der stationären Kinder- und Jugendhilfe haben mein Denken geprägt:
+                        Nicht Theorie zuerst, sondern Praxis als Ausgangspunkt. Als Pädagogischer Leiter und später
+                        als Gesamtleiter eines Schulheims habe ich erlebt, was Familien, Fachpersonen und Institutionen
+                        wirklich brauchen, wenn es schwierig wird.
                     </p>
                     <p class="text-ink/80 mb-6">
-                        Meine Arbeit basiert auf dem BundU-Prinzip – einem integrativen Ansatz, der bewährte Methoden der Neuen Autorität,
-                        lösungsfokussierte Ansätze und systemische Gesprächsführung verbindet.
+                        Das BundU-Prinzip, auf dem meine Arbeit aufbaut, verbindet bewährte Methoden der Neuen Autorität
+                        mit lösungsfokussierten Ansätzen und systemischer Gesprächsführung. Als akkreditierter Berater
+                        des Bündner Standards begleite ich Institutionen zudem bei der Einführung dieses anerkannten
+                        Instruments zur Prävention und professionellen Bearbeitung von Grenzverletzungen.
                     </p>
                     <div class="flex flex-wrap gap-3 mb-6">
-                        @foreach(['Dipl. Sozialpädagoge', 'Coach für Neue Autorität', 'SVEB I'] as $badge)
+                        @foreach(['Dipl. Sozialpädagoge FH', 'Coach für Neue Autorität', 'Berater Bündner Standard', 'Dipl. Paar- und Familientherapeut ZAK', 'SVEB I'] as $badge)
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-teal/10 text-teal">{{ $badge }}</span>
                         @endforeach
                     </div>
@@ -150,7 +154,7 @@
             @forelse($impulse as $item)
                 <a href="{{ route('impulse.show', $item->slug) }}" class="group bg-light rounded-xl overflow-hidden hover:shadow-md transition-shadow">
                     @if($item->featured_image)
-                        <div class="h-48 bg-cover bg-center" style="background-image: url('{{ asset('storage/' . $item->featured_image) }}')"></div>
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('{{ asset($item->featured_image) }}')"></div>
                     @else
                         <div class="h-48 bg-navy/5 flex items-center justify-center text-ink/20">
                             <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/></svg>
@@ -191,7 +195,26 @@
         </div>
     </x-section>
 
-    {{-- 8. FAQ --}}
+    {{-- 8. Podcast --}}
+    @php
+        $global = $global ?? \App\Models\Global_::where('key', 'site')->first();
+        $podcastScript = $global?->content['externalLinks']['podcastScript'] ?? null;
+    @endphp
+    @if($podcastScript)
+    <section class="py-16 lg:py-20 bg-navy text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-3">Familien-Radar Podcast</h2>
+                <p class="text-white/70 max-w-2xl mx-auto">Impulse, Fachwissen und Gespräche rund um Familie, Erziehung und Neue Autorität – überall, wo es Podcasts gibt.</p>
+            </div>
+            <div class="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
+                <iframe width="100%" height="230" src="{{ str_replace('/player.js', '/iframe-player?size=m-alternative', $podcastScript) }}" frameborder="0" scrolling="no" tabindex="0" loading="lazy" style="border-radius: 8px;"></iframe>
+            </div>
+        </div>
+    </section>
+    @endif
+
+    {{-- 9. FAQ --}}
     <x-section title="Häufige Fragen" bgColor="bg-light">
         <div class="max-w-3xl mx-auto">
             @if($faqs->isNotEmpty())
@@ -208,7 +231,7 @@
         </div>
     </x-section>
 
-    {{-- 9. Abschluss-CTA --}}
+    {{-- 10. Abschluss-CTA --}}
     <section class="py-16 lg:py-20 bg-navy text-white">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4">Bereit für den nächsten Schritt?</h2>

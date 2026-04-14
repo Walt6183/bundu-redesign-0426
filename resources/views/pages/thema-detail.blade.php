@@ -85,7 +85,7 @@
                     {{-- Bild --}}
                     @if($thema->featured_image)
                         <div class="rounded-xl overflow-hidden">
-                            <img src="{{ asset('storage/' . $thema->featured_image) }}" alt="{{ $thema->titel }}" class="w-full h-auto">
+                            <img src="{{ asset($thema->featured_image) }}" alt="{{ $thema->titel }}" class="w-full h-auto">
                         </div>
                     @endif
                 </aside>

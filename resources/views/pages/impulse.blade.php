@@ -37,7 +37,7 @@
                 @foreach($impulse as $item)
                     <a href="{{ route('impulse.show', $item->slug) }}" class="group bg-light rounded-xl overflow-hidden hover:shadow-md transition-shadow">
                         @if($item->featured_image)
-                            <div class="h-48 bg-cover bg-center" style="background-image: url('{{ asset('storage/' . $item->featured_image) }}')"></div>
+                            <div class="h-48 bg-cover bg-center" style="background-image: url('{{ asset($item->featured_image) }}')"></div>
                         @else
                             <div class="h-48 bg-navy/5 flex items-center justify-center text-navy/20">
                                 <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/></svg>

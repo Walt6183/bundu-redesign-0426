@@ -43,7 +43,8 @@ class MediaPicker
                     ->required(),
             ])
             ->action(function (array $data, Forms\Set $set) use ($fieldName) {
-                $set($fieldName, $data['media_path']);
+                // FileUpload expects array state (afterStateHydrated wraps via Arr::wrap)
+                $set($fieldName, [$data['media_path']]);
             });
     }
 }

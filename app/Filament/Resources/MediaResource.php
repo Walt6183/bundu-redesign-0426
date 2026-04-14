@@ -31,7 +31,7 @@ class MediaResource extends Resource
                         Forms\Components\FileUpload::make('file_path')
                             ->label('Datei hochladen')
                             ->required()
-                            ->disk('public')
+                            ->disk('public_media')
                             ->directory('media/library')
                             ->visibility('public')
                             ->acceptedFileTypes([
@@ -93,7 +93,7 @@ class MediaResource extends Resource
                         Forms\Components\Hidden::make('mime_type'),
                         Forms\Components\Hidden::make('file_size'),
                         Forms\Components\Hidden::make('disk')
-                            ->default('public'),
+                            ->default('public_media'),
                     ])->columns(2),
             ]);
     }
@@ -104,7 +104,7 @@ class MediaResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('file_path')
                     ->label('Vorschau')
-                    ->disk('public')
+                    ->disk('public_media')
                     ->circular()
                     ->defaultImageUrl(fn ($record) => match ($record->file_type) {
                         'document' => null,
@@ -160,7 +160,7 @@ class MediaResource extends Resource
                 Tables\Actions\Action::make('download')
                     ->label('Download')
                     ->icon('heroicon-o-arrow-down-tray')
-                    ->url(fn (Media $record) => Storage::disk($record->disk ?? 'public')->url($record->file_path))
+                    ->url(fn (Media $record) => Storage::disk($record->disk ?? 'public_media')->url($record->file_path))
                     ->openUrlInNewTab(),
                 Tables\Actions\Action::make('copy_url')
                     ->label('URL kopieren')
@@ -176,7 +176,7 @@ class MediaResource extends Resource
                     ->label('Löschen')
                     ->after(function (Media $record) {
                         // Datei vom Disk löschen
-                        Storage::disk($record->disk ?? 'public')->delete($record->file_path);
+                        Storage::disk($record->disk ?? 'public_media')->delete($record->file_path);
                     }),
             ])
             ->bulkActions([

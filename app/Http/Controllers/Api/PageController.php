@@ -111,7 +111,7 @@ class PageController extends Controller
             if (in_array($key, $imageKeys) && is_string($value) && !empty($value)) {
                 // If it's a storage path (not already a URL), resolve it
                 if (!str_starts_with($value, 'http://') && !str_starts_with($value, 'https://') && !str_starts_with($value, '/')) {
-                    $data[$key] = Storage::disk('public')->url($value);
+                    $data[$key] = Storage::disk('public_media')->url($value);
                 }
             } elseif (is_array($value)) {
                 $data[$key] = $this->resolveDataAssetUrls($value, $imageKeys);

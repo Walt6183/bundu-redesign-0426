@@ -1,28 +1,71 @@
 <x-layouts.app
     :metaTitle="'Kontakt'"
-    :metaDescription="'Kontaktieren Sie B&U BundU – kostenloses Erstgespräch, Beratungsanfrage oder allgemeine Fragen. Ich melde mich innerhalb von 24 Stunden.'"
+    :metaDescription="'Buchen Sie direkt ein kostenloses Erstgespräch oder kontaktieren Sie B&U BundU – ich melde mich innerhalb von 24 Stunden.'"
 >
     {{-- Hero --}}
     <x-hero
         title="Kontakt"
-        subtitle="Ich freue mich auf Ihre Nachricht. Lassen Sie uns gemeinsam den passenden Weg finden."
+        subtitle="Sind Sie bereit, den nächsten Schritt zu gehen? Lassen Sie uns in einem kostenlosen und unverbindlichen Erstgespräch herausfinden, wie ich Sie am besten unterstützen kann."
         bgColor="bg-navy"
     />
 
-    {{-- Kontakt-Bereich --}}
+    {{-- Hauptbereich: Kalender + Formular --}}
     <section class="py-16 lg:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
-                {{-- Formular (3/5) --}}
-                <div class="lg:col-span-3">
-                    <h2 class="font-heading text-xl font-bold text-navy mb-6">Kontaktformular</h2>
-                    <p class="text-ink/70 mb-8">Ich melde mich innerhalb von 24 Stunden bei Ihnen.</p>
-                    <livewire:kontakt-formular />
+                {{-- Links: Terminbuchung --}}
+                <div>
+                    <div class="bg-navy text-white rounded-t-xl px-6 py-4 flex items-center gap-3">
+                        <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <h2 class="font-heading text-lg font-bold">Termin direkt buchen</h2>
+                    </div>
+
+                    @if($calendarUrl)
+                        <div class="bg-white rounded-b-xl border border-t-0 border-ink/10 overflow-hidden">
+                            <iframe
+                                src="{{ $calendarUrl }}"
+                                style="border: 0; width: 100%; height: 680px;"
+                                frameborder="0"
+                                loading="lazy"
+                            ></iframe>
+                        </div>
+                    @else
+                        <div class="bg-light rounded-b-xl border border-t-0 border-ink/10 p-12 text-center">
+                            <p class="text-ink/70">Die Online-Terminbuchung wird in Kürze verfügbar sein.</p>
+                            <p class="text-ink/50 text-sm mt-2">Nutzen Sie in der Zwischenzeit das Kontaktformular.</p>
+                        </div>
+                    @endif
+
+                    {{-- Kurzinfos unter Kalender --}}
+                    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex items-start gap-3 text-sm">
+                            <span class="text-teal text-lg mt-0.5">⏱️</span>
+                            <div>
+                                <p class="font-medium text-navy">15 Minuten</p>
+                                <p class="text-ink/60">Kostenlos & unverbindlich</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm">
+                            <span class="text-teal text-lg mt-0.5">💻</span>
+                            <div>
+                                <p class="font-medium text-navy">Google Meet</p>
+                                <p class="text-ink/60">Bequem von zu Hause</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                {{-- Sidebar (2/5) --}}
-                <div class="lg:col-span-2 space-y-8">
+                {{-- Rechts: Kontaktformular + Kontaktinfos --}}
+                <div class="space-y-8">
+                    {{-- Formular --}}
+                    <div class="bg-white rounded-xl border border-ink/10 p-8">
+                        <h2 class="font-heading text-xl font-bold text-navy mb-2">Kontaktformular</h2>
+                        <p class="text-ink/70 text-sm mb-6">Ich melde mich innerhalb von 24 Stunden bei Ihnen.</p>
+                        <livewire:kontakt-formular />
+                    </div>
 
                     {{-- Direkt-Kontakt --}}
                     <div class="bg-light rounded-xl p-8">
@@ -52,27 +95,16 @@
                         </div>
                     </div>
 
-                    {{-- Erstgespräch-Box --}}
-                    <div class="bg-navy text-white rounded-xl p-8">
-                        <h3 class="font-heading text-lg font-bold mb-3">Kostenloses Erstgespräch</h3>
-                        <p class="text-white/70 text-sm mb-4">
-                            30 Minuten, online, unverbindlich. Wir klären Ihr Anliegen und finden das passende Angebot.
-                        </p>
-                        <p class="text-white/50 text-xs">
-                            Tipp: Wählen Sie im Formular als Betreff «Erstgespräch» – ich schlage dann passende Termine vor.
-                        </p>
-                    </div>
-
                     {{-- 100% Online --}}
-                    <div class="bg-teal/5 border border-teal/20 rounded-xl p-8">
-                        <h3 class="font-heading text-lg font-bold text-navy mb-3">100% Online</h3>
+                    <div class="bg-teal/5 border border-teal/20 rounded-xl p-6">
+                        <h3 class="font-heading text-base font-bold text-navy mb-2">100% Online</h3>
                         <p class="text-ink/70 text-sm">
                             Alle Beratungen finden online statt – bequem von zu Hause oder vom Arbeitsplatz.
                             Ich nutze die DSGVO-konforme Plattform <strong>coachingspace.de</strong>.
                         </p>
                     </div>
-
                 </div>
+
             </div>
         </div>
     </section>

@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use App\Models\Media;
 
 class ReferenzResource extends Resource
 {
@@ -45,9 +46,20 @@ class ReferenzResource extends Resource
                         'institutionen' => 'Institutionen',
                     ]),
 
+                Forms\Components\Select::make('media_auswahl')
+                    ->label('Aus Mediathek wählen')
+                    ->options(fn () => Media::where('file_type', 'image')->orderBy('name')->pluck('name', 'file_path'))
+                    ->searchable()
+                    ->placeholder('Bild aus Mediathek wählen...')
+                    ->dehydrated(false)
+                    ->live()
+                    ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $state ? $set('bild', $state) : null),
+
                 Forms\Components\FileUpload::make('bild')
+                    ->label('Oder neues Bild hochladen')
                     ->image()
-                    ->directory('referenzen')
+                    ->disk('public_media')
+                    ->directory('media/referenzen')
                     ->maxSize(2048),
 
                 Forms\Components\Toggle::make('aktiv')

@@ -5,57 +5,40 @@
         </div>
     @endif
 
-    <form wire:submit="submit" class="space-y-6">
+    <form wire:submit="submit" class="space-y-5">
         {{-- Honeypot (hidden from users, visible to bots) --}}
         <div class="hidden" aria-hidden="true">
             <label for="website">Website</label>
             <input type="text" id="website" wire:model="website" tabindex="-1" autocomplete="off">
         </div>
 
-        {{-- Name --}}
-        <div>
-            <label for="name" class="block text-sm font-medium text-navy mb-1">Name <span class="text-red-500">*</span></label>
-            <input
-                type="text"
-                id="name"
-                wire:model="name"
-                class="w-full px-4 py-3 rounded-lg border border-ink/20 focus:border-teal focus:ring-2 focus:ring-teal/20 outline-none transition-colors"
-                placeholder="Ihr vollständiger Name"
-            >
-            @error('name') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+        {{-- Name + E-Mail nebeneinander --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <label for="name" class="block text-sm font-medium text-navy mb-1">Name <span class="text-red-500">*</span></label>
+                <input
+                    type="text"
+                    id="name"
+                    wire:model="name"
+                    class="w-full px-4 py-3 rounded-lg border border-ink/20 focus:border-teal focus:ring-2 focus:ring-teal/20 outline-none transition-colors"
+                    placeholder="Ihr Name"
+                >
+                @error('name') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+            </div>
+            <div>
+                <label for="email" class="block text-sm font-medium text-navy mb-1">E-Mail <span class="text-red-500">*</span></label>
+                <input
+                    type="email"
+                    id="email"
+                    wire:model="email"
+                    class="w-full px-4 py-3 rounded-lg border border-ink/20 focus:border-teal focus:ring-2 focus:ring-teal/20 outline-none transition-colors"
+                    placeholder="ihre@email.ch"
+                >
+                @error('email') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+            </div>
         </div>
 
-        {{-- E-Mail --}}
-        <div>
-            <label for="email" class="block text-sm font-medium text-navy mb-1">E-Mail <span class="text-red-500">*</span></label>
-            <input
-                type="email"
-                id="email"
-                wire:model="email"
-                class="w-full px-4 py-3 rounded-lg border border-ink/20 focus:border-teal focus:ring-2 focus:ring-teal/20 outline-none transition-colors"
-                placeholder="ihre@email.ch"
-            >
-            @error('email') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
-        </div>
-
-        {{-- Ich bin --}}
-        <div>
-            <label for="ich_bin" class="block text-sm font-medium text-navy mb-1">Ich bin <span class="text-red-500">*</span></label>
-            <select
-                id="ich_bin"
-                wire:model="ich_bin"
-                class="w-full px-4 py-3 rounded-lg border border-ink/20 focus:border-teal focus:ring-2 focus:ring-teal/20 outline-none transition-colors bg-white"
-            >
-                <option value="">Bitte wählen…</option>
-                <option value="eltern">Elternteil / Erziehungsberechtigte:r</option>
-                <option value="fachperson">Fachperson</option>
-                <option value="institution">Institution / Organisation</option>
-                <option value="andere">Andere</option>
-            </select>
-            @error('ich_bin') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
-        </div>
-
-        {{-- Institution (optional) --}}
+        {{-- Institution --}}
         <div>
             <label for="institution" class="block text-sm font-medium text-navy mb-1">Institution <span class="text-ink/40">(optional)</span></label>
             <input
@@ -63,21 +46,25 @@
                 id="institution"
                 wire:model="institution"
                 class="w-full px-4 py-3 rounded-lg border border-ink/20 focus:border-teal focus:ring-2 focus:ring-teal/20 outline-none transition-colors"
-                placeholder="Name der Institution"
+                placeholder="Name Ihrer Institution"
             >
         </div>
 
-        {{-- Betreff --}}
+        {{-- Interesse an (ehemals Ich bin + Betreff) --}}
         <div>
-            <label for="betreff" class="block text-sm font-medium text-navy mb-1">Betreff <span class="text-red-500">*</span></label>
-            <input
-                type="text"
-                id="betreff"
-                wire:model="betreff"
-                class="w-full px-4 py-3 rounded-lg border border-ink/20 focus:border-teal focus:ring-2 focus:ring-teal/20 outline-none transition-colors"
-                placeholder="Worum geht es?"
+            <label for="ich_bin" class="block text-sm font-medium text-navy mb-1">Interesse an <span class="text-red-500">*</span></label>
+            <select
+                id="ich_bin"
+                wire:model="ich_bin"
+                class="w-full px-4 py-3 rounded-lg border border-ink/20 focus:border-teal focus:ring-2 focus:ring-teal/20 outline-none transition-colors bg-white"
             >
-            @error('betreff') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+                <option value="">Bitte wählen…</option>
+                <option value="eltern">Beratung für Eltern</option>
+                <option value="fachperson">Fachberatung / Coaching</option>
+                <option value="institution">Angebot für Institutionen</option>
+                <option value="andere">Allgemeine Informationen</option>
+            </select>
+            @error('ich_bin') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
         </div>
 
         {{-- Nachricht --}}
@@ -86,9 +73,9 @@
             <textarea
                 id="nachricht"
                 wire:model="nachricht"
-                rows="5"
+                rows="4"
                 class="w-full px-4 py-3 rounded-lg border border-ink/20 focus:border-teal focus:ring-2 focus:ring-teal/20 outline-none transition-colors resize-y"
-                placeholder="Ihre Nachricht…"
+                placeholder="Wie können wir Ihnen helfen?"
             ></textarea>
             @error('nachricht') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
         </div>
@@ -112,11 +99,16 @@
         <div>
             <button
                 type="submit"
-                class="w-full sm:w-auto px-8 py-3 bg-teal text-white font-medium rounded-lg hover:bg-navy transition-colors focus:outline-none focus:ring-2 focus:ring-teal/50"
+                class="w-full px-8 py-3 bg-teal text-white font-medium rounded-lg hover:bg-navy transition-colors focus:outline-none focus:ring-2 focus:ring-teal/50 flex items-center justify-center gap-2"
                 wire:loading.attr="disabled"
                 wire:loading.class="opacity-50 cursor-wait"
             >
                 <span wire:loading.remove>Nachricht senden</span>
+                <span wire:loading.remove>
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </span>
                 <span wire:loading>Wird gesendet…</span>
             </button>
         </div>

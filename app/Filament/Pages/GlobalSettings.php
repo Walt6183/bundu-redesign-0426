@@ -55,7 +55,7 @@ class GlobalSettings extends Page
                                         Forms\Components\FileUpload::make('assets.logo')
                                             ->label('Logo')
                                             ->image()
-                                            ->disk('public')
+                                            ->disk('public_media')
                                             ->directory('media')
                                             ->helperText('Logo der Website (wird in Header und Footer angezeigt)'),
                                         Forms\Components\Actions::make([
@@ -64,7 +64,7 @@ class GlobalSettings extends Page
                                         Forms\Components\FileUpload::make('assets.portrait')
                                             ->label('Portrait-Bild')
                                             ->image()
-                                            ->disk('public')
+                                            ->disk('public_media')
                                             ->directory('media')
                                             ->helperText('Portrait-Foto (z.B. für die Über-mich-Seite)'),
                                         Forms\Components\Actions::make([

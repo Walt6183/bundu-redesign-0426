@@ -10,6 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use App\Filament\Forms\Components\MediaPicker;
 
 class ImpulsResource extends Resource
 {
@@ -104,8 +105,12 @@ class ImpulsResource extends Resource
                                 Forms\Components\FileUpload::make('featured_image')
                                     ->label('Bild')
                                     ->image()
-                                    ->directory('impulse')
+                                    ->disk('public_media')
+                                    ->directory('media/impulse')
                                     ->maxSize(5120),
+                                Forms\Components\Actions::make([
+                                    MediaPicker::action('featured_image'),
+                                ]),
 
                                 Forms\Components\TextInput::make('meta_titel')
                                     ->label('Meta-Titel'),
