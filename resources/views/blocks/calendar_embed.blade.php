@@ -2,7 +2,7 @@
     $d = $data;
     $bookingUrl = $d['calendarEmbedUrl'] ?? null;
     if (!$bookingUrl) {
-        $bookingUrl = \App\Models\Global_::where('key', 'site')->first()?->content['externalLinks']['bookingIframe'] ?? null;
+        $bookingUrl = \App\Models\Global_::where('key', 'site')->first()?->content['externalLinks']['bookingUrl'] ?? null;
     }
 @endphp
 
